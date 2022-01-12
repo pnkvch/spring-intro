@@ -1,5 +1,7 @@
 package com.example;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyApp {
@@ -24,5 +26,13 @@ public class MyApp {
         System.out.println(secondAdditionalMessageService.getMessage());
 
         additionalApplicationContext.close();
+
+        ApplicationContext javaConfigApplicationContext = new AnnotationConfigApplicationContext(MessageServiceConfig.class);
+
+        MessageService javaConfigMessageService = javaConfigApplicationContext.getBean(MyNameMessageService.class);
+        MessageService javaConfigAdditionalMessageService = javaConfigApplicationContext.getBean(RandomTextMessageService.class);
+
+        System.out.println(javaConfigMessageService.getMessage());
+        System.out.println(javaConfigAdditionalMessageService.getMessage());
     }
 }
